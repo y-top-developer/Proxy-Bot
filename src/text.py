@@ -1,5 +1,5 @@
 WELCOME = ('👋Hi, I\'m an invite bot of the [MIPT Meetup](https://t.me/mipt_meetup) chat!\n\n'
-           '🌎We are an international community of students and graduates of top universities, people who are interested in science and technology and want to expand their network in order to move towards big goals together'
+           '🌎We are an international community of students and graduates of top universities, people who are interested in science and technology and want to expand their network in order to move towards big goals together\n'
            '🎯If you are preparing for IELTS or TOEFL, an interview in FAANG, a speech at a conference, or just don’t want to lose your speaking skills - you are welcome to join us')
 REQUEST_WHOIS = ('📝But before joining, tell us about yourself - about your education, work, hobbies, motivation to learn English and shere your contacts\n\n'
            '⚠️Don\'t forget add #whois tag to your message\n' 
