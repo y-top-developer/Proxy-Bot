@@ -6,5 +6,3 @@ services:
     restart: always
     env_file:
       - .env
-    volumes:
-      - ${PWD}:/src/data/
