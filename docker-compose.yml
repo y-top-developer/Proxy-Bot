@@ -1,0 +1,10 @@
+version: "3"
+services:
+  telegram_proxy_bot:
+    container_name: telegram_proxy_bot
+    build: .
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ${PWD}:/src/data/
