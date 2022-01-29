@@ -11,7 +11,7 @@ REQUEST_WHOIS = ('📝 Could you tell us about yourself a bit?\n'
 '📲Social media: inst, tg channels, vk account'
 )
 REQUEST_ADD_WHOIS = '🏷️Add #whois tag to your message please'
-WAIT_APPROVE = '🔜Thank you, I sent a message to the admins, the approval will come soon'
+WAIT_APPROVE = '🔥Thank you, the invite link to the chat will come soon after little review'
 APPROVE = 'Approve'
 DENY = 'Deny'
 APPROVED = '🎉Congratulations, click on the link and join our community!'
