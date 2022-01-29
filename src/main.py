@@ -22,7 +22,7 @@ class States:
 def send_welcome(message):
     if message.chat.type == 'private':
         bot.send_message(
-            message.chat.id, WELCOME)
+            message.chat.id, WELCOME, disable_web_page_preview=True)
         bot.send_message(
             message.chat.id, REQUEST_WHOIS)
         bot.set_state(message.chat.id, States.wait_whois)
