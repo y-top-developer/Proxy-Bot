@@ -14,8 +14,7 @@ bot = telebot.TeleBot(TELEGRAM_TOKEN, parse_mode='markdown')
 
 class States:
     wait_whois = 0
-    wait_approve = 1
-    done = 2
+    none = 1
 
 
 @bot.message_handler(commands=['start', 'help'])
@@ -49,7 +48,7 @@ def ask_whois(message):
             APPROVE_CHAT, f'Will approve? {message.chat.first_name} {message.chat.last_name}', reply_markup=keyboard)
 
         bot.send_message(message.chat.id, WAIT_APPROVE)
-        bot.set_state(message.chat.id, States.wait_approve)
+        bot.set_state(message.chat.id, States.none)
 
 
 @bot.message_handler(state=States.wait_whois)
@@ -58,7 +57,7 @@ def send_result(message):
         bot.send_message(message.chat.id, REQUEST_ADD_WHOIS)
 
 
-@bot.callback_query_handler(func=lambda call: call.data.startswith('approve_'), state=States.wait_approve)
+@bot.callback_query_handler(func=lambda call: call.data.startswith('approve_'))
 def approve_user(call):
     bot.edit_message_text(
         chat_id=APPROVE_CHAT,
@@ -67,13 +66,14 @@ def approve_user(call):
     )
 
     _, user_id, whois_message_id = call.data.split('_')
-    bot.send_message(user_id, f'{APPROVED}\n{bot.export_chat_invite_link(MEETUP_CHAT)}')
+    bot.send_message(
+        user_id, f'{APPROVED}\n{bot.export_chat_invite_link(MEETUP_CHAT)}')
 
     bot.forward_message(MEETUP_CHAT, user_id, whois_message_id)
     bot.set_state(int(user_id), States.done)
 
 
-@bot.callback_query_handler(func=lambda call: call.data.startswith('deny_'), state=States.wait_approve)
+@bot.callback_query_handler(func=lambda call: call.data.startswith('deny_'))
 def deny_user(call):
 
     bot.edit_message_text(
