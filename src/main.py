@@ -67,10 +67,10 @@ def approve_user(call):
 
     _, user_id, whois_message_id = call.data.split('_')
     bot.send_message(
-        user_id, f'{APPROVED}\n{bot.export_chat_invite_link(MEETUP_CHAT)}')
+        user_id, f'{APPROVED}\n{bot.export_chat_invite_link(MEETUP_CHAT)}' parse_mode=None)
 
     bot.forward_message(MEETUP_CHAT, user_id, whois_message_id)
-    bot.set_state(int(user_id), States.done)
+    bot.set_state(int(user_id), States.none)
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('deny_'))
