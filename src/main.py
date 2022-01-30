@@ -9,7 +9,7 @@ logger = telebot.logger
 telebot.logger.setLevel(logging.DEBUG)
 
 
-bot = telebot.TeleBot(TELEGRAM_TOKEN, parse_mode='markdown')
+bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
 
 class States:
@@ -21,9 +21,9 @@ class States:
 def send_welcome(message):
     if message.chat.type == 'private':
         bot.send_message(
-            message.chat.id, WELCOME, disable_web_page_preview=True)
+            message.chat.id, WELCOME, disable_web_page_preview=True, parse_mode='markdown')
         bot.send_message(
-            message.chat.id, REQUEST_WHOIS)
+            message.chat.id, REQUEST_WHOIS, parse_mode='markdown')
         bot.set_state(message.chat.id, States.wait_whois)
 
 
@@ -45,16 +45,16 @@ def ask_whois(message):
             )
         )
         bot.send_message(
-            APPROVE_CHAT, f'Will approve? {message.chat.first_name} {message.chat.last_name}', reply_markup=keyboard)
+            APPROVE_CHAT, f'Will approve? {message.chat.first_name} {message.chat.last_name}', reply_markup=keyboard, parse_mode='markdown')
 
-        bot.send_message(message.chat.id, WAIT_APPROVE)
+        bot.send_message(message.chat.id, WAIT_APPROVE, parse_mode='markdown')
         bot.set_state(message.chat.id, States.none)
 
 
 @bot.message_handler(state=States.wait_whois)
 def send_result(message):
     if message.chat.type == 'private':
-        bot.send_message(message.chat.id, REQUEST_ADD_WHOIS)
+        bot.send_message(message.chat.id, REQUEST_ADD_WHOIS, parse_mode='markdown')
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('approve_'))
@@ -67,7 +67,7 @@ def approve_user(call):
 
     _, user_id, whois_message_id = call.data.split('_')
     bot.send_message(
-        user_id, f'{APPROVED}\n{bot.export_chat_invite_link(MEETUP_CHAT)}', parse_mode=None)
+        user_id, f'{APPROVED}\n{bot.export_chat_invite_link(MEETUP_CHAT)}')
 
     bot.forward_message(MEETUP_CHAT, user_id, whois_message_id)
     bot.set_state(int(user_id), States.none)
@@ -83,7 +83,7 @@ def deny_user(call):
     )
 
     _, user_id, _ = call.data.split('_')
-    bot.send_message(user_id, DENIED)
+    bot.send_message(user_id, DENIED, parse_mode='markdown')
     bot.set_state(int(user_id), States.wait_whois)
 
 
