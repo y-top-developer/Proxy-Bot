@@ -2,7 +2,8 @@
 
 Proxy bot between the main chat and a newcomer, allows all participants to get to know each other better due to description messages #whois
 
-![image](https://user-images.githubusercontent.com/47758828/151697407-056b9a8e-b378-4ada-8321-4760721f431c.png)
+![image](https://user-images.githubusercontent.com/47758828/151698188-317a984d-13f3-4077-991c-6f81da3c5a81.png)
+
 
 ## Deploy:
 
